@@ -83,6 +83,13 @@
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>com.chatterer</groupId>
+      <artifactId>kik-library</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/chatterer-kik-library.jar</systemPath>
+</dependency>
   </dependencies>
 
   <build>

@@ -19,8 +19,7 @@ public class Main {
 	private static File getRootFolder() {
 		try {
 			File root;
-			String runningJarPath = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
-					.replaceAll("\\\\", "/");
+			String runningJarPath = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replaceAll("\\\\", "/");
 			int lastIndexOf = runningJarPath.lastIndexOf("/target/");
 			if (lastIndexOf < 0) {
 				root = new File("");

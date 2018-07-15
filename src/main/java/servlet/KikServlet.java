@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import chatterer.kik.Message;
 import kikBot.KikBot;
+import launch.Main;
 
 @WebServlet("/kik")
 public class KikServlet extends HttpServlet {
@@ -25,9 +26,6 @@ public class KikServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	KikBot bot = new KikBot("minime613_bot", "6ddab328-8241-4d54-a651-486970c9cf1f",
-			"https://damp-refuge-92705.herokuapp.com/kik");
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		ServletOutputStream out = resp.getOutputStream();
@@ -41,7 +39,7 @@ public class KikServlet extends HttpServlet {
 		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
 		// String header = req.getHeader("X-Kik-Username"); // retrieves
 		// username of bot if you want to have more than one per servlet
-
+		KikBot bot = Main.bot;
 		String json = "";
 		String line;
 		while ((line = br.readLine()) != null && !line.equals("")) {

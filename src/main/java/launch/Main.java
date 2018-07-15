@@ -8,8 +8,13 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 
-public class Main {
+import kikBot.KikBot;
 
+public class Main {
+	
+	public static KikBot bot = new KikBot("minime613_bot", "6ddab328-8241-4d54-a651-486970c9cf1f",
+			"https://damp-refuge-92705.herokuapp.com/kik");
+	
     public static void main(String[] args) throws Exception {
 
         String webappDirLocation = "src/main/webapp/";

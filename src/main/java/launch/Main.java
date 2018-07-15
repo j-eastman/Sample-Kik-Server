@@ -12,8 +12,10 @@ import kikBot.KikBot;
 
 public class Main {
 	
-	public static KikBot bot = new KikBot("minime613_bot", "6ddab328-8241-4d54-a651-486970c9cf1f",
-			"https://damp-refuge-92705.herokuapp.com/kik");
+	//IMPORTANT: Initialize your bot in launch.Main to ensure that the initial config message is sent
+	//TODO: FILL THIS IN!!!
+	public static KikBot bot = new KikBot("<YOUR BOT USERNAME", "YOUR API KEY",
+			"YOURDOMAIN.com/kik");
 	
     public static void main(String[] args) throws Exception {
 

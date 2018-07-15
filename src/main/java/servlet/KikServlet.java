@@ -34,6 +34,9 @@ public class KikServlet extends HttpServlet {
 		out.close();
 	}
 
+	/**
+	 * This will receive post requests to www.<your domain>.com/kik
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
@@ -63,6 +66,7 @@ public class KikServlet extends HttpServlet {
 			}
 			message.setTypeTime(1000);
 			int type = message.getType();
+			//This switch statement triggers the various ways of dealing with incoming messages
 			switch (type) {
 			case Message.TYPE_TEXT:
 				try {

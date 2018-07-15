@@ -4,7 +4,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-//
+
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.WebResourceSet;
 import org.apache.catalina.core.StandardContext;
@@ -35,8 +35,11 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String webappDirLocation = "src/main/webapp/";
+		File root = getRootFolder();
+		System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
 		Tomcat tomcat = new Tomcat();
+		Path tempPath = Files.createTempDirectory("tomcat-base-dir");
+		tomcat.setBaseDir(tempPath.toString());
 
 		// The port that we should run on can be set into an environment
 		// variable
@@ -47,18 +50,41 @@ public class Main {
 		}
 
 		tomcat.setPort(Integer.valueOf(webPort));
+		File webContentFolder = new File(root.getAbsolutePath(), "src/main/webapp/");
+		if (!webContentFolder.exists()) {
+			webContentFolder = Files.createTempDirectory("default-doc-base").toFile();
+		}
+		StandardContext ctx = (StandardContext) tomcat.addWebapp("", webContentFolder.getAbsolutePath());
+		// Set execution independent of current thread context classloader
+		// (compatibility with exec:java mojo)
+		ctx.setParentClassLoader(Main.class.getClassLoader());
 
-		StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-		System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
+		// Disable TLD scanning by default
+		if (System.getProperty(Constants.SKIP_JARS_PROPERTY) == null
+				&& System.getProperty(Constants.SKIP_JARS_PROPERTY) == null) {
+			System.out.println("disabling TLD scanning");
+			StandardJarScanFilter jarScanFilter = (StandardJarScanFilter) ctx.getJarScanner().getJarScanFilter();
+			jarScanFilter.setTldSkip("*");
+		}
+
+		System.out.println("configuring app with basedir: " + webContentFolder.getAbsolutePath());
 
 		// Declare an alternative location for your "WEB-INF/classes" dir
 		// Servlet 3.0 annotation will work
-		File additionWebInfClasses = new File("target/classes");
+		File additionWebInfClassesFolder = new File(root.getAbsolutePath(), "target/classes");
 		WebResourceRoot resources = new StandardRoot(ctx);
-		resources.addPreResources(
-				new DirResourceSet(resources, "/WEB-INF/classes", additionWebInfClasses.getAbsolutePath(), "/"));
-		ctx.setResources(resources);
 
+		WebResourceSet resourceSet;
+		if (additionWebInfClassesFolder.exists()) {
+			resourceSet = new DirResourceSet(resources, "/WEB-INF/classes",
+					additionWebInfClassesFolder.getAbsolutePath(), "/");
+			System.out.println(
+					"loading WEB-INF resources from as '" + additionWebInfClassesFolder.getAbsolutePath() + "'");
+		} else {
+			resourceSet = new EmptyResourceSet(resources);
+		}
+		resources.addPreResources(resourceSet);
+		ctx.setResources(resources);
 		tomcat.start();
 		tomcat.getServer().await();
 	}

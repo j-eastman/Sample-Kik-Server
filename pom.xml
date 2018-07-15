@@ -7,16 +7,11 @@
   <artifactId>java-getting-started</artifactId>
   <version>1.0</version>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.1.RELEASE</version>
-    <relativePath/>
-  </parent>
   <name>java-getting-started</name>
 
   <properties>
     <java.version>1.8</java.version>
+    <tomcat.version>8.5.23</tomcat.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <webjars-bootstrap.version>4.1.0</webjars-bootstrap.version>
@@ -33,55 +28,29 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+        <version>${tomcat.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-jasper</artifactId>
+        <version>${tomcat.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-      <exclusions>
-      	<exclusion>
-      		<groupId>nz.net.ultraq.thymeleaf</groupId>
-      		<artifactId>thymeleaf-layout-dialect</artifactId>
-      	</exclusion>
-      </exclusions>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-jasper</artifactId>
+        <version>${tomcat.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-jasper-el</artifactId>
+        <version>${tomcat.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.zaxxer</groupId>
-      <artifactId>HikariCP</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery</artifactId>
-      <version>${webjars-jquery.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>jquery-ui</artifactId>
-      <version>${webjars-jquery-ui.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.webjars</groupId>
-      <artifactId>bootstrap</artifactId>
-      <version>${webjars-bootstrap.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-jsp-api</artifactId>
+        <version>${tomcat.version}</version>
     </dependency>
     <dependency>
     	<groupId>org.json</groupId>

@@ -36,10 +36,16 @@
         <artifactId>tomcat-jsp-api</artifactId>
         <version>${tomcat.version}</version>
     </dependency>
-        <dependency>
-    	<groupId>org.json</groupId>
-    	<artifactId>json</artifactId>
-    	<version>20160810</version>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${servlet-api-version}</version>
+      <scope>provided</scope>
+	</dependency>
+      <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20160810</version>
     </dependency>
     <dependency>
       <groupId>com.chatterer</groupId>

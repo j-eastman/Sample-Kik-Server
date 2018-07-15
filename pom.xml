@@ -1,31 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
-  <artifactId>java-getting-started</artifactId>
-  <version>1.0</version>
-
-  <name>java-getting-started</name>
-
+  <groupId>com.heroku.sample</groupId>
+  <artifactId>embeddedTomcatSample</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>embeddedTomcatSample Maven Webapp</name>
+  <url>http://maven.apache.org</url>
   <properties>
-    <java.version>1.8</java.version>
     <tomcat.version>8.5.23</tomcat.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <webjars-bootstrap.version>4.1.0</webjars-bootstrap.version>
-    <webjars-jquery-ui.version>1.12.1</webjars-jquery-ui.version>
-    <webjars-jquery.version>3.3.1-1</webjars-jquery.version>
   </properties>
-
-  <repositories>
-    <repository>
-       <id>local-maven-repo</id>
-       <url>file:///${project.basedir}/local-maven-repo</url>
-    </repository>
-</repositories>
-
   <dependencies>
     <dependency>
         <groupId>org.apache.tomcat.embed</groupId>
@@ -52,7 +36,7 @@
         <artifactId>tomcat-jsp-api</artifactId>
         <version>${tomcat.version}</version>
     </dependency>
-    <dependency>
+        <dependency>
     	<groupId>org.json</groupId>
     	<artifactId>json</artifactId>
     	<version>20160810</version>
@@ -63,31 +47,12 @@
       <version>1.0</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/src/main/resources/chatterer-kik-library.jar</systemPath>
-</dependency>
+	</dependency>
   </dependencies>
-
   <build>
+    <finalName>embeddedTomcatSample</finalName>
     <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>build-info</goal>
-            </goals>
-            <configuration>
-              <additionalProperties>
-                <encoding.source>${project.build.sourceEncoding}</encoding.source>
-                <encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
-                <java.source>${maven.compiler.source}</java.source>
-                <java.target>${maven.compiler.target}</java.target>
-              </additionalProperties>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
+        <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>appassembler-maven-plugin</artifactId>
             <version>2.0.0</version>
@@ -111,5 +76,4 @@
         </plugin>
     </plugins>
   </build>
-
 </project>

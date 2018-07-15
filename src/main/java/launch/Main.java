@@ -19,7 +19,8 @@ public class Main {
 	private static File getRootFolder() {
 		try {
 			File root;
-			String runningJarPath = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replaceAll("\\\\", "/");
+			String runningJarPath = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()
+					.replaceAll("\\\\", "/");
 			int lastIndexOf = runningJarPath.lastIndexOf("/target/");
 			if (lastIndexOf < 0) {
 				root = new File("");
@@ -34,31 +35,31 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
-	     String webappDirLocation = "src/main/webapp/";
-	        Tomcat tomcat = new Tomcat();
+		String webappDirLocation = "src/main/webapp/";
+		Tomcat tomcat = new Tomcat();
 
-	        //The port that we should run on can be set into an environment variable
-	        //Look for that variable and default to 8080 if it isn't there.
-	        String webPort = System.getenv("PORT");
-	        if(webPort == null || webPort.isEmpty()) {
-	            webPort = "8080";
-	        }
+		// The port that we should run on can be set into an environment
+		// variable
+		// Look for that variable and default to 8080 if it isn't there.
+		String webPort = System.getenv("PORT");
+		if (webPort == null || webPort.isEmpty()) {
+			webPort = "8080";
+		}
 
-	        tomcat.setPort(Integer.valueOf(webPort));
+		tomcat.setPort(Integer.valueOf(webPort));
 
-	        StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-	        System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
+		StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+		System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
 
-	        // Declare an alternative location for your "WEB-INF/classes" dir
-	        // Servlet 3.0 annotation will work
-	        File additionWebInfClasses = new File("target/classes");
-	        WebResourceRoot resources = new StandardRoot(ctx);
-	        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
-	                additionWebInfClasses.getAbsolutePath(), "/"));
-	        ctx.setResources(resources);
+		// Declare an alternative location for your "WEB-INF/classes" dir
+		// Servlet 3.0 annotation will work
+		File additionWebInfClasses = new File("target/classes");
+		WebResourceRoot resources = new StandardRoot(ctx);
+		resources.addPreResources(
+				new DirResourceSet(resources, "/WEB-INF/classes", additionWebInfClasses.getAbsolutePath(), "/"));
+		ctx.setResources(resources);
 
-	        tomcat.start();
-	        tomcat.getServer().await();
-	    }
+		tomcat.start();
+		tomcat.getServer().await();
 	}
 }
